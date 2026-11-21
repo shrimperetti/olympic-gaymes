@@ -1,6 +1,6 @@
 # Example file showing a circle moving on screen
 import pygame
-from player import Player
+from src.player import Player
 
 ### setup routine
 # init components
