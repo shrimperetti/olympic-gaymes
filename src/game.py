@@ -13,6 +13,8 @@ try:
 except Exception as e:
     print(f"Error: {e}")
 
+window_caption = "Alex goes BRRR: The Game"
+pygame.display.set_caption(window_caption)
 screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 delta_time = 0
@@ -25,7 +27,7 @@ net_width = 20
 net_bottom = pygame.Vector2(screen.get_width() / 2, screen.get_height())
 
 player1 = Player(
-    init_name = "gennaro",
+    # init_name = "gennaro",
     init_pos = player1_pos,
     init_score = 0,
     init_movement = {
@@ -37,7 +39,7 @@ player1 = Player(
     init_color = "red",
 )
 player2 = Player(
-    init_name = "ambrogio",
+    # init_name = "ambrogio",
     init_pos = player2_pos,
     init_score = 0,
     init_movement = {
@@ -53,6 +55,7 @@ pygame.key.set_repeat(50,50)
 running = True # activation as last line of setup 
 
 while running:
+    pygame.display.set_caption(window_caption)
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
@@ -76,8 +79,8 @@ while running:
     player2.draw_player(screen)
 
     keys = pygame.key.get_pressed()
-    player1.move(keys, delta_time)
-    player2.move(keys, delta_time)
+    player1.move(keys, delta_time, screen, im_a_rect)
+    player2.move(keys, delta_time, screen, im_a_rect)
 
     # flip() the display to put your work on screen
     pygame.display.flip()
