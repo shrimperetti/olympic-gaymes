@@ -28,7 +28,8 @@ player1 = Player(
                     'down': pygame.K_s,
                     'left': pygame.K_a,
                     'right': pygame.K_d,
-                }
+                },
+    init_color = "red",
 )
 player2 = Player(
     init_name = "ambrogio",
@@ -39,7 +40,8 @@ player2 = Player(
                     'down': pygame.K_DOWN,
                     'left': pygame.K_LEFT,
                     'right': pygame.K_RIGHT,
-                }
+                },
+    init_color = "blue",
 )
 
 pygame.key.set_repeat(50,50)
@@ -53,9 +55,8 @@ while running:
 
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("black")
-
-    pygame.draw.circle(screen, "red", player1_pos, 40)
-    pygame.draw.circle(screen, "blue", player2_pos, 40)
+    player1.fig_draw(screen)
+    player2.fig_draw(screen)
 
     keys = pygame.key.get_pressed()
     player1.move(keys, delta_time)
