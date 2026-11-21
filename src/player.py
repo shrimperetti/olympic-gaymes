@@ -1,7 +1,12 @@
 import pygame
 
-PLAYER_SIZE_X = 40
-PLAYER_SIZE_Y = 40
+PLAYER_SIZE_X = 120
+PLAYER_SIZE_Y = 120
+
+PLAYER_MAX_POS_X = 600
+PLAYER_MIN_POS_X = 0 
+PLAYER_MAX_POS_Y = 600
+PLAYER_MIN_POS_Y = 0
 
 class Player:
     name, pos, score, color = None, None, None, None
@@ -28,6 +33,8 @@ class Player:
         self.score = init_score
         self.movement = init_movement
         self.color = init_color
+        self.player_fig = pygame.image.load("p.png")
+        self.player_fig = pygame.transform.smoothscale(self.player_fig, (PLAYER_SIZE_X, PLAYER_SIZE_Y))
         print(self)
 
     def __str__(self):
@@ -40,15 +47,18 @@ class Player:
     def move(self, keys, delta_time):
         if keys[self.movement['up']]:
             self.pos.y -= 300 * delta_time
+            self.pos.y = max(self.pos.y, PLAYER_MIN_POS_Y)
         if keys[self.movement['down']]:
             self.pos.y += 300 * delta_time
+            self.pos.y = min(self.pos.y, PLAYER_MAX_POS_Y)
         if keys[self.movement['left']]:
             self.pos.x -= 300 * delta_time
+            self.pos.x = max(self.pos.x, PLAYER_MIN_POS_X)
         if keys[self.movement['right']]:
             self.pos.x += 300 * delta_time
+            self.pos.x = min(self.pos.x, PLAYER_MAX_POS_X)
+        
+        # self.clamp_ip(screen.get_rect())
             
-    def get_screen_center(screen, offset=0):
-        return ((screen.get_width() / 2) + offset, (screen.get_height() / 2) + offset)
-    
-    def fig_draw(self, screen):
-        pygame.draw.circle(screen, self.color, self.pos, PLAYER_SIZE_X)
+    def draw_player(self, screen):
+        screen.blit(self.player_fig, self.pos)

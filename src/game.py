@@ -17,7 +17,6 @@ screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 delta_time = 0
 
-
 player1_pos = pygame.Vector2(screen.get_width() / 4, screen.get_height() / 4 * 3)
 player2_pos = pygame.Vector2(screen.get_width() / 4 * 3, screen.get_height() / 4 * 3)
 
@@ -62,17 +61,19 @@ while running:
 
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("black")
-    #rect(surface, color, rect, width=0, border_radius=0, border_top_left_radius=-1, border_top_right_radius=-1, border_bottom_left_radius=-1, border_bottom_right_radius=-1) -> Rect
-    #left, top, width, height
+
     rect_left = (screen.get_width() - net_width)/ 2
     rect_top = screen.get_height() / 4
     rect_height = screen.get_height()*3/4
     im_a_rect = pygame.Rect((rect_left, rect_top), (net_width, rect_height)) 
     pygame.draw.rect(screen, "white", im_a_rect, width=net_width)
     
-    player1.fig_draw(screen)
-    player2.fig_draw(screen)
-    
+
+
+    # player1.fig_draw(screen)
+    # player2.fig_draw(screen)
+    player1.draw_player(screen)
+    player2.draw_player(screen)
 
     keys = pygame.key.get_pressed()
     player1.move(keys, delta_time)
